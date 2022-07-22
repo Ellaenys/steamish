@@ -1,1 +1,18 @@
-<p>games works!</p>
+<h1>Les jeux disponibles sur Steam Ish :</h1>
+
+<div class="row d-flex justify-content-center flex-wrap" *ngIf="gameApiRequest">
+  <div class="col-lg-3 col-md-6 card p-2 m-3" *ngFor="let user of gameApiRequest.items">
+
+    <img [src]="user.thumbnailCover" class="img-fluid img-game">
+    <h3 class="text-center">{{ user.name}}</h3>
+    <p class="text-end"><strong>Prix : </strong>{{ user.price }} €</p>
+
+  </div>
+</div>
+
+<div class="d-flex justify-content-center" *ngIf="gameApiRequest">
+  <button class="btn btn-danger btn-sm m-5" (click)="getIndexGames(gameApiRequest.page-1)">Page précédente</button>
+  <button class="btn btn-danger btn-sm m-5" (click)="getIndexGames(gameApiRequest.page+1)">Page suivante</button>
+</div>
+
+

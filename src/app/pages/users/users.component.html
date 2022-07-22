@@ -1,1 +1,32 @@
-<p>users works!</p>
+<h1>Les utilisateurs de Steam Ish !</h1>
+
+<table class="table mt-5 table-striped">
+  <thead>
+  <tr>
+    <th scope="col">Nom</th>
+    <th scope="col">E-mail</th>
+    <th scope="col">Pseudo</th>
+    <th scope="col">Nombre de jeux</th>
+    <th scope="col">Création de compte</th>
+    <th scope="col">Pays</th>
+  </tr>
+  </thead>
+  <tbody *ngIf="usersApiRequest">
+  <tr *ngFor="let user of usersApiRequest.items">
+    <th scope="row">{{ user.name }}</th>
+    <td>{{ user.email }}</td>
+    <td>{{ user.nickname }}</td>
+    <td>{{ user.librariesCount }}</td>
+    <td>{{ user.createdAt | date : 'd/M/yyyy' }}</td>
+    <td><img [src]="user.country.urlFlag" class="img-fluid"></td>
+  </tr>
+  </tbody>
+</table>
+<div class="d-flex justify-content-center" *ngIf="usersApiRequest">
+
+  <button class="btn btn-outline-danger btn-sm m-5" (click)="getIndexUsers(1)">Première page</button>
+  <button class="btn btn-danger btn-sm m-5" (click)="getIndexUsers(usersApiRequest.page-1)" [disabled]="usersApiRequest.page === 1">Page précédente</button>
+  <p>page {{ usersApiRequest.page }}</p>
+  <button class="btn btn-danger btn-sm m-5" (click)="getIndexUsers(usersApiRequest.page+1)" [disabled]="usersApiRequest.page === usersApiRequest.totalpage">Page suivante</button>
+  <button class="btn btn-outline-danger btn-sm m-5" (click)="getIndexUsers(usersApiRequest.totalpage)">Dernière page</button>
+</div>
